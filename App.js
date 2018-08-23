@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { Text, View, StatusBar } from 'react-native';
+import styled, { injectGlobal } from 'styled-components';
 import Weather from './src/components/Weather';
-
 const API_KEY = "343904aea116438da5e35075e3d5bce5";
 
 export default class App extends Component {
@@ -39,40 +39,36 @@ export default class App extends Component {
     }
     render() {
         return (
-            <View style={styles.container}>
+            <Container>
                 <StatusBar hidden={true} />
                 { this.state.isLoaded ?
                     <Weather
                         temp={this.state.temperature}
                         name={this.state.name}
                     /> :
-                    <View style={styles.loading}>
-                        <Text style={styles.loadingText}>Getting the weather</Text>
-                        { this.state.error ? <Text style={styles.errorText}>{this.state.error}</Text> : null }
-                    </View>
+                    <Loading>
+                        <LoadingText>aa</LoadingText>
+                        { this.state.error ? <ErrorText >{this.state.error}</ErrorText> : null }
+                    </Loading>
                 }
-            </View>
+            </Container>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff'
-    },
-    errorText: {
-        color: 'red'
-    },
-    loading: {
-        flex: 1,
-        paddingRight: 30,
-        paddingBottom: 40,
-        paddingLeft: 30,
-        backgroundColor: '#FDF6AA',
-        justifyContent: 'flex-end'
-    },
-    loadingText: {
-        fontSize: 30
-    }
-});
+const Container = styled.View`
+    flex: 1;
+    background-color: #fff;
+`;
+const ErrorText  = styled.Text`
+    color: red;
+`;
+const Loading  = styled.View`
+    flex: 1;
+    padding: 0 30px 40px 30px;
+    background-color: #FDF6AA;
+    justify-content: flex-end;
+`;
+const LoadingText  = styled.Text`
+    font-size: 30;
+`;
