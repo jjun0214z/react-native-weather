@@ -2,30 +2,73 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import styled, { injectGlobal } from 'styled-components';
 import { connect } from 'react-redux';
-
 import { LinearGradient } from 'expo';
 import { Ionicons } from '@expo/vector-icons';
 
-export default class Weather extends Component {
-    render() {
-        return(
-            <LinearGradient
-                colors={["#00C6FB", "#005BEA"]}
-                style={{flex: 1}}
-            >
-                <Upper>
-                    <Ionicons color="#fff" size={100} name="ios-rainy"/>
-                    <Temp>{this.props.temp}º</Temp>
-                </Upper>
-                <Lower>
-                    <Title>{this.props.name}</Title>
-                    <SubTitle>subtitle</SubTitle>
-                </Lower>
-            </LinearGradient>
-        );
+const weatherCases = {
+    Rain: {
+        colors:['#00C6FB', '#005BEA'],
+        title: "Rain",
+        subTitle: "1",
+        icon: 'ios-rainy'
+    },
+    Clear: {
+        colors:['#FEF253', '#FF7300'],
+        title: "Clear",
+        subTitle: "2",
+        icon: 'ios-sunny'
+    },
+    Thunderstorm: {
+        colors:['#00ECBC', '#007ADF'],
+        title: "Thunderstorm",
+        subTitle: "3",
+        icon: 'ios-thunderstorm'
+    },
+    Clouds: {
+        colors:['#D7D2CC', '#304352'],
+        title: "Clouds",
+        subTitle: "4",
+        icon: 'ios-cloudy'
+    },
+    Snow: {
+        colors:['#7DE2FC', '#B9B6E5'],
+        title: "Snow",
+        subTitle: "5",
+        icon: 'ios-snow'
+    },
+    Drizzle: {
+        colors:['#89F7FE', '#66A6FF'],
+        title: "Drizzle",
+        subTitle: "6",
+        icon: 'ios-cloudy'
+    },
+    Haze: {
+        colors:['#89F7FE', '#66A6FF'],
+        title: "Haze",
+        subTitle: "7",
+        icon: 'ios-cloudy'
     }
+};
+
+function Weather({ weatherName, temp }){
+    return (
+        <LinearGradient
+            colors={weatherCases[weatherName].colors}
+            style={{flex: 1}}
+        >
+            <Upper>
+                <Ionicons color="#fff" size={100} name={weatherCases[weatherName].icon}/>
+                <Temp>{temp}º</Temp>
+            </Upper>
+            <Lower>
+                <Title>{weatherCases[weatherName].title}</Title>
+                <SubTitle>{weatherCases[weatherName].subTitle}</SubTitle>
+            </Lower>
+        </LinearGradient>
+    );
 }
 
+export default Weather;
 
 const Upper = styled.View`
     flex: 1;

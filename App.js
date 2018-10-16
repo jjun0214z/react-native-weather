@@ -14,7 +14,7 @@ export default class App extends Component {
             name: null
         };
     }
-    componentDidMount(){
+    componentDidMount() {
         navigator.geolocation.getCurrentPosition(
             position => {
                 this._getWeather(position.coords.latitude, position.coords.longitude);
@@ -23,7 +23,8 @@ export default class App extends Component {
                 this.setState({
                     error: error
                 });
-            }
+            },
+            { timeout: 7000, enableHighAccuracy: true }
         );
     }
     _getWeather = (lat, lon) => {
@@ -43,11 +44,11 @@ export default class App extends Component {
                 <StatusBar hidden={true} />
                 { this.state.isLoaded ?
                     <Weather
+                        weatherName={this.state.name}
                         temp={this.state.temperature}
-                        name={this.state.name}
                     /> :
                     <Loading>
-                        <LoadingText>aa</LoadingText>
+                        <LoadingText>aaaa</LoadingText>
                         { this.state.error ? <ErrorText >{this.state.error}</ErrorText> : null }
                     </Loading>
                 }
